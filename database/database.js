@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize('sira','Bryan','Sistemasdistribuidos2022',{
-host: 'crud-sd.postgres.database.azure.com',
+host: 'sira.postgres.database.azure.com',
 port: 5432,
 logging:false,
 native:false,

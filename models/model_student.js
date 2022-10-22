@@ -25,6 +25,9 @@ const model_student = sequelize.define('estudiantes',{
     estado :{
         type: DataTypes.STRING
     },
+    imagen: {
+        type: DataTypes.STRING
+    }
     }, 
     {
     timestamps: false,
