@@ -8,8 +8,9 @@ const routes_student = require('./routes/routes_student');
 const port = 3000;  
 const app = express();
 app.use(express.json())
-app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
 
 
 

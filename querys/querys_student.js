@@ -51,7 +51,8 @@ const createStudent = async(req,res)=>{
         numero_documento,
         nombres,
         apellidos,
-        estado
+        estado,
+        imagen
     })
         res.status(201).send('Estudiante creado')
     } catch (error) {
