@@ -85,23 +85,21 @@ const updateStudent = async(req,res)=>{
 
 
 const deleteStudent = async(req,res)=>{
-    const {id_estudiante,filename,container} = req.body;
+    const {id_estudiante,container} = req.body;
+    const filename = id_estudiante+".png"
     try {
         const students = await model_student.destroy({
             where:{
                 id_estudiante
             }
         })
-        res.status(202).send('Estudiante eliminado')
+        res.status(202).send("Estudiante eliminado")
         deleteBlob(container,filename);
     } catch (error) {
         res.status(500)
     }
 };
 
-const prueba = async(res,req)=>{
-    console.log('2')
-}
 
 module.exports.getStudents = getStudents;
 module.exports.getStudentsId = getStudentsId;
@@ -109,6 +107,5 @@ module.exports.getActiveStudents = getActiveStudents;
 module.exports.createStudent = createStudent;
 module.exports.updateStudent = updateStudent;
 module.exports.deleteStudent = deleteStudent;
-module.exports.prueba = prueba;
 
 
