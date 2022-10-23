@@ -5,17 +5,15 @@ const blobService = BlobServiceClient.fromConnectionString(
     process.env.AZURE_STORAGE_CONNECTION_STRING
 );
 
-const uploadBlob = async (req,res)=>{
+async function uploadBlob(container,originalname,buffer){
     try {
-        const {container} = req.body;
-        const {originalname,buffer} = req.file;
         const containerClient = blobService.getContainerClient(container)
 
         await containerClient.getBlockBlobClient(originalname).uploadData(buffer)
-        res.json({"message":"success "})
+        console.log({"message":"Imagen cargada en el contenedor",container})
     } catch (error) {
-        res.status(500).json({message: error.message});
+        console.log({message: error.message});
     }
 }
 
-module.exports.uploadBlob = uploadBlob;
+module.exports = {uploadBlob}

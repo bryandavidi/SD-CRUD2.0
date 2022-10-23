@@ -1,3 +1,5 @@
+
+const { uploadBlob } = require('../file_server/blob');
 const model_student = require ('../models/model_student');
 
 const getStudents = async(req,res)=>{
@@ -42,7 +44,8 @@ const getActiveStudents = async(req,res)=>{
 };
 
 const createStudent = async(req,res)=>{
-    const {id_estudiante,codigo_estudiante,tipo_documento,numero_documento,nombres,apellidos,estado} = req.body;
+    const {container, id_estudiante, codigo_estudiante, tipo_documento, numero_documento, nombres, apellidos, estado} = req.body;
+    const{originalname,buffer} = req.file;
     try {
         const students = await model_student.create({
         id_estudiante,
@@ -52,9 +55,10 @@ const createStudent = async(req,res)=>{
         nombres,
         apellidos,
         estado,
-        imagen
+        imagen : "https://imagenesira.blob.core.windows.net/imagenesira/" + originalname
     })
-        res.status(201).send('Estudiante creado')
+    res.status(201).send('Estudiante creado')
+    uploadBlob(container,originalname,buffer);
     } catch (error) {
         res.status(400);
     }
@@ -94,7 +98,9 @@ const deleteStudent = async(req,res)=>{
     }
 };
 
-
+const prueba = async(res,req)=>{
+    console.log('2')
+}
 
 module.exports.getStudents = getStudents;
 module.exports.getStudentsId = getStudentsId;
@@ -102,5 +108,6 @@ module.exports.getActiveStudents = getActiveStudents;
 module.exports.createStudent = createStudent;
 module.exports.updateStudent = updateStudent;
 module.exports.deleteStudent = deleteStudent;
+module.exports.prueba = prueba;
 
 
