@@ -1,5 +1,5 @@
 const { BlobServiceClient } = require("@azure/storage-blob")
-const { config } = require("dotenv").config({path:'./src/.env'})
+require("dotenv").config({path:'./src/.env'})
 
 const blobService = BlobServiceClient.fromConnectionString(
     process.env.AZURE_STORAGE_CONNECTION_STRING
@@ -19,7 +19,6 @@ async function uploadBlob(container,originalname,buffer){
 function deleteBlob(container,filename,){
     try {
         const containerClient = blobService.getContainerClient(container)
-
         const response = containerClient
         .getBlockBlobClient(filename)
         .deleteIfExists();
