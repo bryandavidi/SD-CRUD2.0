@@ -10,10 +10,24 @@ async function uploadBlob(container,originalname,buffer){
         const containerClient = blobService.getContainerClient(container)
 
         await containerClient.getBlockBlobClient(originalname).uploadData(buffer)
-        console.log({"message":"Imagen cargada en el contenedor",container})
+        console.log({"message":"Imagen cargada en el contenedor"})
     } catch (error) {
         console.log({message: error.message});
     }
 }
 
-module.exports = {uploadBlob}
+function deleteBlob(container,filename,){
+    try {
+        const containerClient = blobService.getContainerClient(container)
+
+        const response = containerClient
+        .getBlockBlobClient(filename)
+        .deleteIfExists();
+        console.log({"message":"Imagen eliminada"})
+    } catch (error) {
+        console.log({message: error.message});
+    }
+}
+
+
+module.exports = {uploadBlob,deleteBlob}

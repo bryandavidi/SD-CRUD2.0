@@ -1,5 +1,5 @@
 
-const { uploadBlob } = require('../file_server/blob');
+const { uploadBlob, deleteBlob } = require('../file_server/blob');
 const model_student = require ('../models/model_student');
 
 const getStudents = async(req,res)=>{
@@ -85,7 +85,7 @@ const updateStudent = async(req,res)=>{
 
 
 const deleteStudent = async(req,res)=>{
-    const {id_estudiante} = req.body;
+    const {id_estudiante,filename,container} = req.body;
     try {
         const students = await model_student.destroy({
             where:{
@@ -93,6 +93,7 @@ const deleteStudent = async(req,res)=>{
             }
         })
         res.status(202).send('Estudiante eliminado')
+        deleteBlob(container,filename);
     } catch (error) {
         res.status(500)
     }
