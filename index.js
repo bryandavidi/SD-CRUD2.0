@@ -2,15 +2,20 @@ require("dotenv").config({path:'./src/.env'});
 const express = require('express');
 const sequelize = require('./database/database')
 const bodyParser =require('body-parser');
+
 const routes_course = require('./routes/routes_course');
-const router_inscription = require('./routes/routes_inscription');
+const routes_inscription = require('./routes/routes_inscription');
 const routes_student = require('./routes/routes_student');
+const routes_user = require('./routes/routes_user');
+
+const cors = require('cors')
 
 const app = express();
 
 app.use(express.json())
+app.use(cors())
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false})); 
 
 
 async function main(){
@@ -19,7 +24,9 @@ async function main(){
     connDBAzure();
     app.use('/',routes_student);
     app.use('/',routes_course);
-    app.use('/',router_inscription);
+    app.use('/',routes_inscription);
+    app.use('/',routes_user);
+
 
     app.use('/',(req,res)=>{
         res.send('WELCOME');
