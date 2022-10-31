@@ -17,4 +17,4 @@ routes_student.put('/estudiantes/actualizar/:id',updateStudent);
 
 routes_student.delete('/estudiantes/eliminar',deleteStudent);
 
-module.exports = routes_student
+module.exports = routes_student;

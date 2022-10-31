@@ -1,8 +1,9 @@
 const express = require('express');
 const routes_course = express.Router();
 const { getCourses, getCourseId, deleteCourse, createCourse, getActiveCourses, updateCourse } = require('../querys/querys_course');
+const { verifyToken } = require('../token/token');
 
-routes_course.get('/materias/todas',getCourses);
+routes_course.get('/materias/todas',verifyToken,getCourses);
 
 routes_course.get('/materias/id',getCourseId);
 

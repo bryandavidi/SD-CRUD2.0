@@ -1,14 +1,16 @@
 require("dotenv").config({path:'./src/.env'});
 const express = require('express');
 const sequelize = require('./database/database')
-const bodyParser =require('body-parser');
+const bodyParser = require('body-parser');
 
 const routes_course = require('./routes/routes_course');
 const routes_inscription = require('./routes/routes_inscription');
 const routes_student = require('./routes/routes_student');
-const routes_user = require('./routes/routes_user');
+const routes_auth = require('./routes/routes_auth');
 
-const cors = require('cors')
+const  {verifyToken}  = require('./token/token');
+
+const cors = require('cors');
 
 const app = express();
 
@@ -25,7 +27,7 @@ async function main(){
     app.use('/',routes_student);
     app.use('/',routes_course);
     app.use('/',routes_inscription);
-    app.use('/',routes_user);
+    app.use('/',routes_auth);
 
 
     app.use('/',(req,res)=>{
