@@ -29,8 +29,8 @@ const loginCtrl = async(req,res) => {
             );
             
         if(!user){
-            res.status(404)
             res.send({error : 'Error user no found'})
+            res.status(404)
         }
 
         const checkPassword = await compare(contrasena, user.contrasena)

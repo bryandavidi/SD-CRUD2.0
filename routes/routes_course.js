@@ -5,14 +5,14 @@ const { verifyToken } = require('../token/token');
 
 routes_course.get('/materias/todas',verifyToken,getCourses);
 
-routes_course.get('/materias/id',getCourseId);
+routes_course.get('/materias/id',verifyToken,getCourseId);
 
-routes_course.get('/materias/activas',getActiveCourses);
+routes_course.get('/materias/activas',verifyToken,getActiveCourses);
 
-routes_course.post('/materias/crear',createCourse);
+routes_course.post('/materias/crear',verifyToken,createCourse);
 
-routes_course.delete('/materias/eliminar',deleteCourse);
+routes_course.delete('/materias/eliminar',verifyToken,deleteCourse);
 
-routes_course.put('/materias/actualizar/:id',updateCourse);
+routes_course.put('/materias/actualizar/:id',verifyToken,updateCourse);
 
 module.exports = routes_course;
