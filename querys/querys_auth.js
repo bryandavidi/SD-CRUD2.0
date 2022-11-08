@@ -29,7 +29,7 @@ const loginCtrl = async(req,res) => {
             );
             
         if(!user){
-            res.send({error : 'Error user no found'})
+            res.send({error : 'Error user no found',})
             res.status(404)
         }
 

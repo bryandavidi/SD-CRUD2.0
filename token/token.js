@@ -25,10 +25,10 @@ const verifyToken = (req, res, next) => {
         if(tokenData.user.id_usuario){
             next()
         }
-
     } catch (error) {
         res.status(400).json({error: 'token no es válido'})
     }
+   
 }
 
 module.exports.tokenSign = tokenSign;

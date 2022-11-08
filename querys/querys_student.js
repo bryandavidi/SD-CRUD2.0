@@ -1,6 +1,8 @@
 
 const { uploadBlob, deleteBlob } = require('../file_server/blob');
 const model_student = require ('../models/model_student');
+const model_inscription = require ('../models/model_inscription');
+
 
 const getStudents = async(req,res)=>{
     try {
@@ -88,6 +90,13 @@ const deleteStudent = async(req,res)=>{
     const {id_estudiante,container} = req.body;
     const filename = id_estudiante+".png"
     try {
+        const inscription = await model_inscription.destroy(
+            {
+            where:{
+                id_estudiante
+            }
+        }
+        ) 
         const students = await model_student.destroy({
             where:{
                 id_estudiante

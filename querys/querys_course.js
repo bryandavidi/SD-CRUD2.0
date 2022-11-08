@@ -1,4 +1,5 @@
 const model_course = require ('../models/model_course');
+const model_inscription = require ('../models/model_inscription');
 
 const getCourses = async(req,res)=>{
     try {
@@ -81,6 +82,13 @@ const updateCourse = async(req,res)=>{
 const deleteCourse = async(req,res)=>{
     const {id_materia} = req.body;
         try {
+            const inscription = await model_inscription.destroy(
+            {
+             where:{
+                id_materia
+            }
+        }
+        ) 
         const course = await model_course.destroy({
             where:{
                 id_materia

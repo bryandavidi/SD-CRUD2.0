@@ -45,7 +45,7 @@ const createInscription = async(req,res)=>{
 const deleteInscription = async(req,res)=>{
     const {id_estudiante,id_materia} = req.body
     try {
-        const inscripition = await model_inscription.destroy({
+        const inscription = await model_inscription.destroy({
             where:{
                 id_estudiante,
                 id_materia

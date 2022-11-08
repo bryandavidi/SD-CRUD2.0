@@ -8,8 +8,6 @@ const routes_inscription = require('./routes/routes_inscription');
 const routes_student = require('./routes/routes_student');
 const routes_auth = require('./routes/routes_auth');
 
-const  {verifyToken}  = require('./token/token');
-
 const cors = require('cors');
 
 const app = express();
@@ -31,14 +29,14 @@ async function main(){
 
 
     app.use('/',(req,res)=>{
-        res.send('WELCOME');
+        res.send('BIENVENIDO A LA API SIRA PARA EL CURSO DE SISTEMAS DISTRIBUIDOS 2022-2');
     })
 };
 
 async function connDBAzure(){
     try {
         await sequelize.sync();
-        console.log('Conexion a la base de datos Azure exitosa')
+        console.log('Conexion a la base de datos exitosa')
     } catch (error) {
         console.error(error, 'Conexion a la base de datos fallida')
     }
