@@ -2,16 +2,53 @@
 const { uploadBlob, deleteBlob } = require('../file_server/blob');
 const model_student = require ('../models/model_student');
 const model_inscription = require ('../models/model_inscription');
+require("dotenv").config({path:'./src/.env'});
+const redis = require("redis");
 
+ 
+const client = redis.createClient({
+    url: "rediss://red-cdt9fk5a49935ki33v70:i05o7KLTrYmHFqje01rw0xX4r2l8geFB@ohio-redis.render.com:6379",
+    expire: 10
+    
+});
+
+client.connect();
+
+client.on("connect", function(err){
+  console.log("Conexion a redis")
+})
 
 const getStudents = async(req,res)=>{
+    console.log("Cache response : " + await client.ping());
+    let keyName = 'studentsGet'
+    let getCacheData = await client.get(keyName);
+    let responseArray = ''
     try {
-        const students = await model_student.findAll();
-        res.status(200).json(students);
-    } catch (error) {
+        if(getCacheData){
+            responseArray = getCacheData
+            res.status(200).json(JSON.parse(responseArray));
+        }else {
+            const students = await model_student.findAll();
+            client.set(keyName,JSON.stringify(students));
+            client.expire('studentsGet', 5)
+            res.status(200).json(students);
+        }
+        }
+        catch (error) {
         res.status(500)
     }
+    
+
 };
+
+// const getStudents = async(req,res)=>{
+//     try {
+//         const students = await model_student.findAll();
+//         res.status(200).json(students);
+//     } catch (error) {
+//         res.status(500)
+//     }
+// };
 
 const getStudentsId = async(req,res)=>{
     let {id_estudiante} = req.body;
