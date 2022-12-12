@@ -2,6 +2,8 @@ require("dotenv").config({path:'./src/.env'});
 const express = require('express');
 const sequelize = require('./database/database')
 const bodyParser = require('body-parser');
+const https = require("https");
+const fs = require("fs");
 
 const routes_course = require('./routes/routes_course');
 const routes_inscription = require('./routes/routes_inscription');
@@ -19,8 +21,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 
 async function main(){
-    app.listen(process.env.PORT)
-    console.log('Servidor corriendo en el puerto : ', process.env.PORT)
+    https.createServer({
+        key: fs.readFileSync("key.pem"),
+        cert: fs.readFileSync("cert.pem"),
+    },app).listen(4000)
+    console.log('Servidor corriendo en el puerto : ',4000)
     connDBAzure();
     app.use('/',routes_student);
     app.use('/',routes_course);
